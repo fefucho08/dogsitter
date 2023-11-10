@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 typedef struct cuidador{
     int disponibilidade;
     char nome[50];
@@ -36,7 +40,6 @@ int countServicos(){
         if(c == '\n')
             qtdServicos++;
     }while(c != EOF);
-
     fclose(arquivo);
     return qtdServicos;
 }
@@ -46,7 +49,7 @@ Cuidador* getServicos(){
     arq_cuidadores = fopen("cuidadores.txt", "r");
 
     int qtdServicos = countServicos();
-    Cuidador* servicos = malloc(qtdServicos*(sizeof(Cuidador)));
+    Cuidador* servicos = (Cuidador*) malloc((qtdServicos-1)*(sizeof(Cuidador)));
     
     if(servicos == NULL){
         printf("Erro na alocação de memória!\n");
@@ -83,9 +86,9 @@ void listServicos(Cuidador* servicos){
     int qtdServicos = countServicos();
     int indiceServicos = 1;
 
-    for(int i = 0; i < qtdServicos; i++){
+    for(int i = 0; i < qtdServicos-1; i++){
         if(servicos[i].disponibilidade == 1){
-            printf("%d - Nome: %s Cidade: %s Dia: %s Horario: %s Telefone: %s\n", indiceServicos, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone);
+            printf("%d - %s\t%s\t%s\t%s\t%s\n", indiceServicos, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone);
             indiceServicos++;
         }
     }
@@ -108,7 +111,6 @@ void selecionouServico(int selecao, Cuidador* servicos){
         }
         i++;
     }
-
     mudaDisponibilidade(servicos);
 
     char fileName[15];
@@ -140,15 +142,20 @@ void selecionouServico(int selecao, Cuidador* servicos){
 
 void mudaDisponibilidade(Cuidador* servicos){
     FILE* arq_cuidadores;
-    arq_cuidadores = fopen("cuidadores.txt", "w");
+    arq_cuidadores = fopen("cuidadores.txt", "r+");
 
-    int qtdServicos = countServicos(servicos);
+    if (arq_cuidadores != NULL) {
+        int qtdServicos = countServicos(servicos);
 
-    for(int i = 0; i < qtdServicos; i++){
-        fprintf(arq_cuidadores, "%d %s/%s/%s/%s/%s # %d\n", servicos[i].disponibilidade, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone, servicos[i].cpf);
+        for(int i = 0; i < qtdServicos - 1; i++){
+            fprintf(arq_cuidadores, "%d %s/%s/%s/%s/%s # %d\n", servicos[i].disponibilidade, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone, servicos[i].cpf);
+        }
+
+        fclose(arq_cuidadores);
+    } else {
+        printf("Erro ao abrir o arquivo de cuidadores.\n");
+        exit(1);
     }
-
-    fclose(arq_cuidadores);
 }
 
 void cadastrarCuidador(char* nome, int cpf, char* cidade, char* dia, char* horario, char* telefone){

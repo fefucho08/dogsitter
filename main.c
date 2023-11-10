@@ -64,7 +64,6 @@ void areaContratarServico(){
         menuPrincipal();
     else
         selecionouServico(selecao, servicos);
-    
     free(servicos);
 }
 
