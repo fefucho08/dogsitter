@@ -90,18 +90,20 @@ void telaCadastroCuidador(){
     system("clear");
     
     char nome[50];
-    int cpf;
+    long int cpf;
     char cidade[30];
     char dia[15];
     char horario[30];
     char telefone[16];
 
     printf("Insira suas informações!\n\n");
+    getchar();
     printf("Digite seu nome:\n");
     fgets(nome, 50, stdin);
     nome[strlen(nome)-1] = '\0';
     printf("Digite seu CPF:\n");
-    scanf("%11d", &cpf);
+    scanf("%ld", &cpf);
+    getchar();
     printf("Digite a cidade:\n");
     fgets(cidade, 50, stdin);
     cidade[strlen(cidade)-1] = '\0';
@@ -120,5 +122,17 @@ void telaCadastroCuidador(){
 
 void telaTrabalhosCuidador(){
     system("clear");
-    printf("trabalhos");
+    long int cpf;
+    char* trabalho;
+
+    printf("Digite seu CPF:\n");
+    printf("Ou digite 0 para retornar ao menu principal\n");
+    trabalho = buscarCPF(&cpf);
+    
+    if(cpf == -1){
+        menuPrincipal();
+    }
+    else {
+        consultarTrabalhos(trabalho);
+    }    
 }

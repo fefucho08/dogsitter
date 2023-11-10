@@ -1,0 +1,10 @@
+0 Joana/São Paulo/Segunda/08:00-10:00/1234567890       # 9876
+0 Marcos/Rio de Janeiro/Quarta/12:30-15:00/9876543210       # 5432
+0 Carolina/Brasília/Quinta/09:00-11:30/8765432109       # 2468
+0 Pedro/Porto Alegre/Sexta/14:00-16:00/6543210987       # 1357
+0 Marina/Belo Horizonte/Sábado/10:30-12:30/7890123456       # 8023
+0 Lucas/Curitiba/Domingo/11:00-13:00/2109876543       # 6421
+0 Gabriela/Salvador/Segunda/15:30-17:00/9012345678       # 3746
+0 Felipe/Recife/Terça/08:30-10:30/1098765432       # 5682
+1 Rafael/Manaus/Quarta/13:00-15:30/5432109876       # 9204
+0 Larissa/Florianópolis/Sexta/09:30-11:00/8765432109       # 7531
