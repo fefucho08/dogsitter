@@ -129,7 +129,7 @@ void telaTrabalhosCuidador(){
     printf("Ou digite 0 para retornar ao menu principal\n");
     trabalho = buscarCPF(&cpf);
     
-    if(cpf == -1){
+    if(trabalho == NULL){
         menuPrincipal();
     }
     else {
