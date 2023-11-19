@@ -105,16 +105,16 @@ void telaCadastroCuidador(){
     scanf("%ld", &cpf);
     getchar();
     printf("Digite a cidade:\n");
-    fgets(cidade, 50, stdin);
+    fgets(cidade, 30, stdin);
     cidade[strlen(cidade)-1] = '\0';
     printf("Digite o dia da semana:\n");
-    fgets(dia, 50, stdin);
+    fgets(dia, 15, stdin);
     dia[strlen(dia)-1] = '\0';
     printf("Digite o horario:\n");
-    fgets(horario, 50, stdin);
+    fgets(horario, 30, stdin);
     horario[strlen(horario)-1] = '\0';
     printf("Digite seu telefone:\n");
-    fgets(telefone, 50, stdin);
+    fgets(telefone, 16, stdin);
     telefone[strlen(telefone)-1] = '\0';
 
     cadastrarCuidador(nome, cpf, cidade, dia, horario, telefone);
