@@ -12,20 +12,20 @@ typedef struct cuidador{
     char telefone[20];
 } Cuidador;
 
-void mudaDisponibilidade(Cuidador* servicos);
+void reescreveArquivo(Cuidador* servicos);
 
 int preencheSelecao(int* selecao, int maximo){
     scanf("%d", selecao);
 
     if(*selecao == 0)
-        return -1;
+        return -1; // RETORNO PADRAO PARA "SAIR"
     
     if(*selecao <= maximo)
         return *selecao;
     
     else {
         printf("Selecione uma opção válida!\n");
-        preencheSelecao(selecao, maximo); // recursão OK
+        preencheSelecao(selecao, maximo); // RECURSÃO - DIGITA ATÉ SER VÁLIDO
     }
 }
 
@@ -33,12 +33,17 @@ int countServicos(){
     FILE* arquivo;
     arquivo = fopen("./arquivos/cuidadores.txt", "r");
 
+    if(arquivo == NULL){
+        printf("Erro ao abrir arquivo de cuidadores!\n");
+        exit(1);
+    }
+
     int qtdServicos = 1;
     char c;
     do{
         c = fgetc(arquivo);
         if(c == '\n')
-            qtdServicos++;
+            qtdServicos++; // CONTA A QTD DE LINHAS DO ARQUIVO
     }while(c != EOF);
     fclose(arquivo);
     return qtdServicos;
@@ -48,8 +53,13 @@ Cuidador* getServicos(){
     FILE* arq_cuidadores;
     arq_cuidadores = fopen("./arquivos/cuidadores.txt", "r");
 
+    if(arq_cuidadores == NULL){
+        printf("Erro ao abrir arquivo de cuidadores!\n");
+        exit(1);
+    }
+
     int qtdServicos = countServicos();
-    Cuidador* servicos = (Cuidador*) malloc((qtdServicos-1)*(sizeof(Cuidador)));
+    Cuidador* servicos = (Cuidador*) malloc((qtdServicos-1)*(sizeof(Cuidador))); // ALOCA VETOR COM OS CUIDADORES DO ARQUIVO
     
     if(servicos == NULL){
         printf("Erro na alocação de memória!\n");
@@ -58,9 +68,9 @@ Cuidador* getServicos(){
 
     int i = 0;
 
-    char infoServico[200];
+    char infoServico[250]; // STRING RESPONSÁVEL PELO ARMAZENAMENTO E LEITURA DA LINHA
 
-    while(fgets(infoServico, 200, arq_cuidadores) != NULL){
+    while(fgets(infoServico, 250, arq_cuidadores) != NULL){
         sscanf(infoServico, "%d %[^/]/%[^/]/%[^/]/%[^/]/%[^#] # %ld", &servicos[i].disponibilidade, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone, &servicos[i].cpf);
         i++;
     }
@@ -75,7 +85,7 @@ int countDisponiveis(Cuidador* servicos){
 
     int disponiveis = 0;
     for(int i = 0; i < qtdServicos; i++){
-        if(servicos[i].disponibilidade == 1)
+        if(servicos[i].disponibilidade == 1) // VERIFICA SE A DISPONIBILIDADE É 1 (DISPONIVEL)
             disponiveis++;
     }
     return disponiveis;
@@ -98,16 +108,18 @@ void selecionouServico(int selecao, Cuidador* servicos){
 
     Cuidador cuidadorSelecionado;
 
-    int indiceServico = 1;
+    int indiceDisponivel = 1;
     int i = 0;
+
+    /* ENCONTRA O VALOR DA SELECAO NO VETOR DE CUIDADORES */
     while(1){
         if(servicos[i].disponibilidade == 1){
-            if(indiceServico == selecao){
+            if(indiceDisponivel == selecao){
                 cuidadorSelecionado = servicos[i];
                 servicos[i].disponibilidade = 0;
                 break;
             }
-            indiceServico++;  
+            indiceDisponivel++;  
         }
         i++;
     }
@@ -116,7 +128,7 @@ void selecionouServico(int selecao, Cuidador* servicos){
     sprintf(filePath, "./arquivos/trabalhosCuidadores/%ld.txt", cuidadorSelecionado.cpf);
     
     FILE* trabalhosCuidador;
-    trabalhosCuidador = fopen(filePath, "a");
+    trabalhosCuidador = fopen(filePath, "a"); // CRIA UM ARQUIVO COM O CPF
 
     char nome[50];
     char raca[30];
@@ -135,13 +147,13 @@ void selecionouServico(int selecao, Cuidador* servicos){
 
     fprintf(trabalhosCuidador, "#%s, %s, %s\nNome: %s\tRaça do cachorro: %s\tPorte do cachorro: %s\n", cuidadorSelecionado.cidade, cuidadorSelecionado.dia, cuidadorSelecionado.horario, nome, raca, porte);
 
-    mudaDisponibilidade(servicos);
+    reescreveArquivo(servicos);
     
     printf("Você contratou o serviço %d\n", selecao);
     printf("Entre em contato com o dog sitter %s pelo telefone %s\n", cuidadorSelecionado.nome, cuidadorSelecionado.telefone);
 }
 
-void mudaDisponibilidade(Cuidador* servicos){
+void reescreveArquivo(Cuidador* servicos){
     FILE* arq_cuidadores;
     arq_cuidadores = fopen("./arquivos/cuidadores.txt", "r+");
 
@@ -182,7 +194,7 @@ char* buscarCPF(long int* cpf) {
     getchar();
 
     if (*cpf == 0) {
-        return NULL;
+        return NULL; // RETORNO PADRÃO PARA "SAIR"
     }
 
     char* filePath = (char*) malloc(60*sizeof(char));
@@ -210,6 +222,8 @@ void consultarTrabalhos(char* path){
 
     if(trabalhos != NULL){
         char linha[150];
+
+        /* COMO A # DIVIDE NO DOCUMENTO, QDO FOR IDENTIFICADA, IRÁ IMPRIMIR O INDICE DO TRABALHO */
         while(fgets(linha, 150, trabalhos) != NULL){
             for(int i = 0; i < strlen(linha); i++){
                 if(linha[i] != '#'){
