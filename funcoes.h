@@ -98,9 +98,12 @@ void listServicos(Cuidador* servicos){
 
     for(int i = 0; i < qtdServicos-1; i++){
         if(servicos[i].disponibilidade == 1){
-            printf("%d - %50s\t%30s\t%15s\t%30s\t%20s\n", indiceServicos, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario, servicos[i].telefone);
+            printf("%d - %50s\t%30s\t%15s\t%30s\n", indiceServicos, servicos[i].nome, servicos[i].cidade, servicos[i].dia, servicos[i].horario);
             indiceServicos++;
         }
+    }
+    if(indiceServicos == 1){
+        printf("Não há serviços disponíveis\n");
     }
 }
 

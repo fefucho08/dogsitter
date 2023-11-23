@@ -1,0 +1,10 @@
+1 Maria/São Paulo/Segunda-feira/09:00-17:00/(11) 1234-5678     # 12345678901
+0 João/Rio de Janeiro/Terça-feira/10:00-18:00/(21) 9876-5432     # 23456789012
+1 Ana/Brasília/Quarta-feira/08:30-16:30/(61) 8765-4321     # 34567890123
+0 Pedro/Belo Horizonte/Quinta-feira/11:30-19:30/(31) 2345-6789     # 45678901234
+1 Carla/Salvador/Sexta-feira/09:00-17:00/(71) 5432-1098     # 56789012345
+0 Lucas/Porto Alegre/Sábado/10:00-18:00/(51) 3210-9876     # 67890123456
+0 Beatriz/Fortaleza/Domingo/08:30-16:30/(85) 2109-8765     # 78901234567
+1 Guilherme/Recife/Segunda-feira/11:30-19:30/(81) 6543-2109     # 89012345678
+1 Isabela/Curitiba/Terça-feira/09:00-17:00/(41) 4321-0987     # 90123456789
+1 Rafael/Manaus/Quarta-feira/10:00-18:00/(92) 1098-7654     # 1234567890

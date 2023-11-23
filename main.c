@@ -40,9 +40,6 @@ void areaContratarServico(){
     system("clear");
     int selecao = 0;
 
-    FILE* arq_cuidadores;
-    arq_cuidadores = fopen("cuidadores.txt", "r");
-
     int indiceServico = 1;
     char infoServico[250];
 
@@ -94,7 +91,7 @@ void telaCadastroCuidador(){
     char cidade[30];
     char dia[15];
     char horario[30];
-    char telefone[16];
+    char telefone[20];
 
     printf("Insira suas informações!\n\n");
     getchar();
@@ -114,7 +111,7 @@ void telaCadastroCuidador(){
     fgets(horario, 30, stdin);
     horario[strlen(horario)-1] = '\0';
     printf("Digite seu telefone:\n");
-    fgets(telefone, 16, stdin);
+    fgets(telefone, 20, stdin);
     telefone[strlen(telefone)-1] = '\0';
 
     cadastrarCuidador(nome, cpf, cidade, dia, horario, telefone);
