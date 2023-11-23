@@ -71,7 +71,7 @@ void areaCuidador(){
 
     printf("Bem vindo a área do cuidador!\n");
     printf("Selecione uma opção:\n");
-    printf("1 - Cadastrar como cuidador.\n2 - Verificar seus trabalhos.\n\n\n3 - Sair\n");
+    printf("1 - Cadastrar como cuidador.\n2 - Verificar seus trabalhos.\n\n\n0 - Sair\n");
 
     selecao = preencheSelecao(&selecao, 2);
 

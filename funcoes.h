@@ -238,6 +238,11 @@ void consultarTrabalhos(char* path){
                 }
             }
         }
+
+        if(qtdTrabalhos == 1){
+            printf("Você não possui trabalhos\n");
+        }
+
         fclose(trabalhos);
     }
     else{
